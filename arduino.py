@@ -15,7 +15,7 @@ while 1:
         con=con+1
     time.sleep(1)
     if(con==2):
-        var=str('enviando')
+        var=str('Rig1: 25 MH/s')
         arduino.write(var)
         time.sleep(2)
 
