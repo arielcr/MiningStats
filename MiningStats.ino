@@ -9,13 +9,13 @@ void setup() {
 
   lcd.begin(16, 2);
   lcd.clear();
-  lcd.print(".:Mining Stats:.");
+  lcd.print("   <ETHEREUM>");
 }
 
 void loop() {
 
   if(counter==1){
-    Serial.println("Arduino Activado");
+    Serial.println("Arduino Activated!");
     delay(1000);
     counter++;
   }
@@ -24,14 +24,14 @@ void loop() {
 
   while(Serial.available()){
     delay(30);
-    if(counter==2){
-      String printl = Serial.readStringUntil('\n');
-      Serial.println(printl);
-      lcd.clear();
-      lcd.print(printl);
-      delay(1000);
-      counter++;
-    }
+    String printl = Serial.readStringUntil('\n');
+    Serial.println(printl);
+    lcd.clear();
+    lcd.print("   <ETHEREUM>");
+    lcd.setCursor(0, 1);
+    lcd.print(printl);
+    delay(1000);
+    counter++;
   }
 
 }

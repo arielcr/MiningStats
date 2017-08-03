@@ -1,11 +1,22 @@
-import serial, time
+import serial, time, urllib2, json
 
+con = 1
 arduino = serial.Serial('/dev/ttyACM0', 9600)
 time.sleep(1) 
 
-print "Iniciando..."
-con = 1
+print "Initializing..."
 arduino.flush()
+
+def getCoinStats(coin):
+    data = []
+    stats = json.load(urllib2.urlopen("https://api.coinmarketcap.com/v1/ticker/"+coin+"/?convert=USD"))
+    price_usd = round(float(stats[0]['price_usd']), 2)
+    perc_change = stats[0]['percent_change_24h']
+    data= [price_usd,perc_change]
+    return data
+
+eth = getCoinStats("ethereum")
+display = "price"
 
 while 1:
     if(con==1):
@@ -15,8 +26,13 @@ while 1:
         con=con+1
     time.sleep(1)
     if(con==2):
-        var=str('Rig1: 25 MH/s')
+        if(display=="price"):
+            var=str('Price: $') + str(eth[0])
+            display = "perc"
+        else:
+            var=str('Change: ') + str(eth[1]) + str('%')
+            display = "price"
         arduino.write(var)
-        time.sleep(2)
+        time.sleep(3)
 
 
