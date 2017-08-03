@@ -7,12 +7,11 @@ def getCoinStats(coin):
     price_usd = round(float(stats[0]['price_usd']), 2)
     perc_change = stats[0]['percent_change_24h']
     data = [price_usd,perc_change]
-    print data
 
 def updateStats(coin):
     while 1:
         getCoinStats(coin)
-        time.sleep(15)
+        time.sleep(180)
 
 con = 1
 data = []
